@@ -583,20 +583,23 @@ def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, 
     if df.empty:
         return html.P("No data available for the selected treatments and cell types.")
 
-    # Pivot the data for heatmap
-    heatmap_data = df.pivot_table(index="Time", columns="Treatment", values="Value", aggfunc="mean")
+    # Pivot the data for heatmap (flip x and y axes)
+    heatmap_data = df.pivot_table(index="Treatment", columns="Time", values="Value", aggfunc="mean")
+
+    # Reorder the rows of the heatmap to match the order of selected_treatments
+    heatmap_data = heatmap_data.loc[selected_treatments]
 
     # Create the heatmap
     fig = px.imshow(
         heatmap_data,
-        labels={"x": "Treatment", "y": "Time", "color": selected_data_type.capitalize()},
-        color_continuous_scale="Viridis",
+        labels={"x": "Time", "y": "Treatment", "color": selected_data_type.capitalize()},
+        color_continuous_scale="RdYlGn",  # Green-to-red color scale
         title=f"{selected_data_type.capitalize()} Heatmap"
     )
     fig.update_layout(
         template="simple_white",
-        xaxis_title="Treatment",
-        yaxis_title="Time (hours)",
+        xaxis_title="Time (hours)",
+        yaxis_title="Treatment",
         height=600
     )
 

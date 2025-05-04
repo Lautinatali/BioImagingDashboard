@@ -1,4 +1,4 @@
-# Plotly Dashboard
+# BioImaging Dashboard
 
 This project is an interactive dashboard for visualizing live cell imaging data (e.g. Incucyte data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
 
