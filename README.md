@@ -1,9 +1,9 @@
 # BioImaging Dashboard
 
-This project is an interactive dashboard for visualizing live cell imaging data (e.g. Incucyte® data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
+This project is an interactive dashboard for visualizing live cell imaging data (e.g., Incucyte® data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
 
 ## Expected inputs
-As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "celltypes" and at least one of "phase", "green" and "red". Treatments and celltypes should contain the platemap information regarding treatments applied and cell types used in the experiment, while the rest of the tabs should include an "Elapsed" column with time data and several other columns with microscopy data (fluorescence, confluence, etc) with the column header being the well identifier (e.g. A1, B3, etc). Included in the project files there is an example file. 
+As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "celltypes" and at least one of "phase", "green" and "red". "Treatments" and "celltypes" should contain the platemap information regarding treatments applied and cell types used in the experiment, while the rest of the tabs should include an "Elapsed" column with time data and several other columns with microscopy data (fluorescence, confluence, etc.) with the column header being the well identifier (e.g., A1, B3, etc.). Included in the project files there is an example file. 
 
 ## Features
 
@@ -16,7 +16,6 @@ As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "cellty
   - Export graphs in SVG or PNG format.
   - Specify custom filenames for exported graphs.
 - **Responsive Design**: Built with [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/) for a clean and responsive UI.
-
 
 ## Getting Started
 
@@ -49,7 +48,7 @@ As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "cellty
 
 1. **Upload Data**:
    - Drag and drop an Excel file or select one using the upload component.
-   - Ensure the file contains the required sheets (minimum required is celltypes, treatments and one of phase/green/red).
+   - Ensure the file contains the required sheets (minimum required is "celltypes", "treatments" and one of "phase"/"green"/"red").
 
 2. **Select Data Type**:
    - Choose the data type to visualize individually (e.g., Phase, Green, Red, Green/Red Ratio).
@@ -77,7 +76,6 @@ This project uses the following libraries:
 - [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/) for styling and layout.
 - [Pandas](https://pandas.pydata.org/) for data manipulation.
 - [NumPy](https://numpy.org/) for numerical operations.
-
 
 ## Contributing
 
