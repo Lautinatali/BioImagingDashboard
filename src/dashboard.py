@@ -16,7 +16,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MATERIA])  # Changed 
 # Define the Navbar
 navbar = dbc.NavbarSimple(
     children=[],
-    brand="Live Cell Imaging Dashboard",
+    brand="BioImaging Dashboard",
     brand_href="#",  # Link to home or refresh
     color="dark",  # Use a dark background for the navbar
     dark=True,  # Set to True for light text on dark background
