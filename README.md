@@ -1,6 +1,9 @@
 # BioImaging Dashboard
 
-This project is an interactive dashboard for visualizing live cell imaging data (e.g. Incucyte data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
+This project is an interactive dashboard for visualizing live cell imaging data (e.g. Incucyte® data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
+
+## Expected inputs
+As of now, the program intakes a .xslx file with at least 3-5 tabs: "treatments", "celltypes" and one of "phase", "green" and "red". Treatments and celltypes should contain the platemap information regarding treatments applied and cell types used in the experiment, while the rest of the tabs should include an "Elapsed" column with time data and several other columns with microscopy data (fluorescence, confluence, etc) with the column header being the well identifier (e.g. A1, B3, etc). Included in the project files there is an example file. 
 
 ## Features
 
@@ -63,8 +66,8 @@ This project is an interactive dashboard for visualizing live cell imaging data 
 
 - **Individual**: Displays a single plot for the selected data type.
 - **Multi Plot**: Displays multiple plots side by side for comparison.
-- **Diagnostics**: Provides diagnostic information about the uploaded data.
 - **Heatmaps**: Displays data as heatmaps with treatments on the X-axis, time on the Y-axis, and values represented by color intensity.
+- **Diagnostics**: Provides diagnostic information about the uploaded data.
 
 ## Dependencies
 
