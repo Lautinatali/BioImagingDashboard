@@ -313,7 +313,7 @@ def update_graph(active_tab, selected_treatments, selected_celltypes, selected_d
     elif active_tab == "diagnostics":
         return create_diagnostics_content(sheets)
     elif active_tab == "heatmaps":
-        return create_heatmap(selected_treatments, selected_celltypes, selected_data_type, sheets, treatments, celltypes)
+        return create_heatmap(selected_treatments, selected_celltypes, selected_data_type, sheets, treatments, celltypes, export_format, export_filename)
 
     return html.P("Select a tab.")
 
@@ -545,7 +545,7 @@ def create_individual_plot(selected_treatments, selected_celltypes, selected_dat
 def create_multi_plot(selected_treatments, selected_celltypes, selected_data_type, export_format, export_filename, sheets, treatments, celltypes):
     return generate_plot(selected_data_type, selected_treatments, selected_celltypes, export_format, export_filename, sheets, treatments, celltypes, is_multi_plot=True)
 
-def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, sheets, treatments, celltypes):
+def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, sheets, treatments, celltypes, export_format, export_filename):
     # Load the selected data type
     data_files = {
         "phase": process_microscopy_data(sheets["phase"]) if "phase" in sheets else None,
@@ -583,25 +583,42 @@ def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, 
     if df.empty:
         return html.P("No data available for the selected treatments and cell types.")
 
-    # Pivot the data for heatmap (flip x and y axes)
-    heatmap_data = df.pivot_table(index="Treatment", columns="Time", values="Value", aggfunc="mean")
+    # Combine Treatment and CellType into a single identifier
+    df["Treatment_CellType"] = df["Treatment"] + " (" + df["CellType"] + ")"
 
-    # Reorder the rows of the heatmap to match the order of selected_treatments
-    heatmap_data = heatmap_data.loc[selected_treatments]
+    # Pivot the data for heatmap (flip x and y axes)
+    heatmap_data = df.pivot_table(index="Treatment_CellType", columns="Time", values="Value", aggfunc="mean")
+
+    # Reorder the rows of the heatmap to group by cell type first, then by treatment
+    combined_order = [
+        f"{treatment} ({celltype})"
+        for celltype in selected_celltypes
+        for treatment in selected_treatments
+    ]
+    heatmap_data = heatmap_data.loc[combined_order]
 
     # Create the heatmap
     fig = px.imshow(
         heatmap_data,
-        labels={"x": "Time", "y": "Treatment", "color": selected_data_type.capitalize()},
+        labels={"x": "Time", "y": "Treatment (CellType)", "color": selected_data_type.capitalize()},
         color_continuous_scale="RdYlGn",  # Green-to-red color scale
         title=f"{selected_data_type.capitalize()} Heatmap"
     )
     fig.update_layout(
         template="simple_white",
         xaxis_title="Time (hours)",
-        yaxis_title="Treatment",
+        yaxis_title="Treatment (CellType)",
         height=600
     )
+
+    # Configure download options
+    config = {
+        'toImageButtonOptions': {
+            'format': export_format,  # Use the user-selected format (e.g., 'svg', 'png')
+            'filename': export_filename,  # Use the user-provided filename
+            'scale': 2  # Adjust the scale for higher resolution
+        }
+    }
 
     return dbc.Card(
         [
@@ -609,7 +626,8 @@ def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, 
             dbc.CardBody(
                 dcc.Graph(
                     id="heatmap_graph",
-                    figure=fig
+                    figure=fig,
+                    config=config  # Add the config for download options
                 )
             )
         ],
