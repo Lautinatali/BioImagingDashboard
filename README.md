@@ -14,18 +14,6 @@ This project is an interactive dashboard for visualizing live cell imaging data 
   - Specify custom filenames for exported graphs.
 - **Responsive Design**: Built with [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/) for a clean and responsive UI.
 
-## Project Structure
-
-```
-plotly-dashboard
-├── src
-│   ├── dashboard.py     # Main Python script for the dashboard
-│   ├── assets           # Folder for custom CSS and assets
-│   │   └── style.css    # Custom styles for the dashboard
-│   └── data             # Example data files (optional)
-├── README.md            # Documentation for the project
-└── requirements.txt     # Python dependencies
-```
 
 ## Getting Started
 
@@ -38,7 +26,7 @@ plotly-dashboard
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/plotly-dashboard.git
+   git clone https://github.com/Lautinatali/BioImagingDashboard.git
    cd plotly-dashboard
    ```
 
