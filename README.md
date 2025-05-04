@@ -29,7 +29,7 @@ As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "cellty
 1. Clone the repository:
    ```bash
    git clone https://github.com/Lautinatali/BioImagingDashboard.git
-   cd plotly-dashboard
+   cd BioImagingDashboard
    ```
 
 2. Install the required dependencies:
