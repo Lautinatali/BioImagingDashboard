@@ -1,9 +1,21 @@
+![image](https://github.com/user-attachments/assets/59ac5a78-8272-4a01-bd71-064c900702a3)
+
 # BioImaging Dashboard
 
 This project is an interactive dashboard for visualizing live cell imaging data (e.g., Incucyte® data) built using [Dash](https://dash.plotly.com/) and [Plotly](https://plotly.com/). It allows users to upload data, visualize it in various formats (line plots, multi-plots, heatmaps), and export the visualizations in different formats.
 
 ## Expected inputs
 As of now, the program intakes a .xslx file with 3-5 tabs: "treatments", "celltypes" and at least one of "phase", "green" and "red". "Treatments" and "celltypes" should contain the platemap information regarding treatments applied and cell types used in the experiment, while the rest of the tabs should include an "Elapsed" column with time data and several other columns with microscopy data (fluorescence, confluence, etc.) with the column header being the well identifier (e.g., A1, B3, etc.). Included in the project files there is an example file. 
+
+![image](https://github.com/user-attachments/assets/0dfed565-b6a5-4853-b139-78a836b7aaf6)
+
+Example image of a platemap for a 384 well experiment
+
+![image](https://github.com/user-attachments/assets/63de8a31-5316-426f-87cb-b761467e43c1)
+
+
+Example of the structure of a microscopy data tab
+
 
 ## Features
 
