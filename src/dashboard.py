@@ -178,8 +178,8 @@ app.layout = html.Div(
                                     children=[
                                         dbc.Tab(label="Individual", tab_id="individual"),
                                         dbc.Tab(label="Multi Plot", tab_id="multi_plot"),
-                                        dbc.Tab(label="Diagnostics", tab_id="diagnostics"),
-                                        dbc.Tab(label="Heatmaps", tab_id="heatmaps")  # New Heatmaps tab
+                                        dbc.Tab(label="Heatmaps", tab_id="heatmaps"),  # Move Heatmaps to the third position
+                                        dbc.Tab(label="Diagnostics", tab_id="diagnostics")  # Move Diagnostics to the last position
                                     ],
                                     className="mb-3"
                                 ),
@@ -597,12 +597,21 @@ def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, 
     ]
     heatmap_data = heatmap_data.loc[combined_order]
 
+    # Generate a proper title for the heatmap
+    data_type_titles = {
+        "phase": "Confluence",
+        "green": "Green Fluorescence",
+        "red": "Red Fluorescence",
+        "ratio": "Green/Red Ratio"
+    }
+    heatmap_title = f"{data_type_titles.get(selected_data_type, selected_data_type.capitalize())} Over Time"
+
     # Create the heatmap
     fig = px.imshow(
         heatmap_data,
-        labels={"x": "Time", "y": "Treatment (CellType)", "color": selected_data_type.capitalize()},
+        labels={"x": "Time", "y": "Treatment (CellType)", "color": data_type_titles.get(selected_data_type, selected_data_type.capitalize())},
         color_continuous_scale="RdYlGn",  # Green-to-red color scale
-        title=f"{selected_data_type.capitalize()} Heatmap"
+        title=heatmap_title
     )
     fig.update_layout(
         template="simple_white",
@@ -622,7 +631,7 @@ def create_heatmap(selected_treatments, selected_celltypes, selected_data_type, 
 
     return dbc.Card(
         [
-            dbc.CardHeader(f"{selected_data_type.capitalize()} Heatmap"),
+            dbc.CardHeader(heatmap_title),
             dbc.CardBody(
                 dcc.Graph(
                     id="heatmap_graph",
